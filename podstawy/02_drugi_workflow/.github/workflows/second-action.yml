@@ -1,0 +1,17 @@
+name: First Workflow
+on:
+    [workflow_dispatch,pull_request, push]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+      - name: Run Script
+        run: python hello.py
+
+        
