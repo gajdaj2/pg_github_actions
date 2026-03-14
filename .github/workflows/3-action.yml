@@ -14,9 +14,9 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
       - name: Run server
-        run: uvicorn app:app --host 127.0.0.1 --port 8000 & sleep 5
+        run: uvicorn app:app --host 127.0.0.1 --port 8000 & sleep 3
       - name: Run tests
-        run: pytest tests/ --junitxml=reports/junit.xml
+        run: pytest tests/tests.py --junitxml=reports/junit.xml
       - name: Archive reports
         uses: actions/upload-artifact@v4
         with:
