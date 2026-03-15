@@ -15,8 +15,20 @@ jobs:
       - name: Start services
         run: docker compose up -d
 
+      - name: Wait for app
+        run: |
+          for i in {1..30}; do
+            if curl -fsS http://127.0.0.1:8000/ > /dev/null; then
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "App did not become ready in time"
+          exit 1
+
       - name: Run tests
-        run: docker compose exec -T app npm test
+        run: docker compose exec -T app pytest tests/tests.py
 
       - name: Cleanup
+        if: always()
         run: docker compose down
